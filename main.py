@@ -34,8 +34,8 @@ def check_pitch(text):
         failures.append("leading or trailing whitespace")
     if not (1 <= len(text) <= 240):
         failures.append("length %d not in 1..240" % len(text))
-    if any(ord(ch) < 32 or ord(ch) == 127 for ch in text):
-        failures.append("control characters present")
+    if any(ord(ch) < 32 or ord(ch) > 126 for ch in text):
+        failures.append("control or non-ASCII characters present")
     try:
         text.encode("utf-8")
     except UnicodeEncodeError as exc:
